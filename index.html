@@ -485,5 +485,15 @@
     <!-- Start of bodyEnd -->
     
     <!-- End of bodyEnd -->
+
+<script>
+  // Check if redirected from 404.html
+  const redirectPath = sessionStorage.getItem("redirectPath");
+  if (redirectPath) {
+    sessionStorage.removeItem("redirectPath");
+    window.location.hash = redirectPath.replace("/", "#");
+  }
+</script>
 </body>
+
 </html>
