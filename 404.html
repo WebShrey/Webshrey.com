@@ -5,13 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Redirecting...</title>
     <script>
-      // Get full path (example: /contact or /work)
-      const path = window.location.pathname;
-
-      // Redirect back to index with the path as a hash
-      // Example: /contact → /#contact
-      sessionStorage.setItem("redirectPath", path);
-      window.location.replace("/#"+ path.replace("/", ""));
+      const redirect = window.location.pathname;
+      sessionStorage.redirect = redirect;
+      window.location.href = "/";
     </script>
   </head>
   <body></body>
