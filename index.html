@@ -487,28 +487,17 @@
     <!-- End of bodyEnd -->
 
 <script>
-  // Restore last section after refresh or redirect
-  const redirectPath = sessionStorage.getItem("redirectPath");
-  if (redirectPath) {
-    sessionStorage.removeItem("redirectPath");
-    window.location.hash = redirectPath.replace("/", "#");
-  }
-
-  // Save current section hash
-  window.addEventListener("hashchange", () => {
-    const hash = window.location.hash.replace("#", "");
-    if (hash) sessionStorage.setItem("lastPage", hash);
+  // Save last scroll position or section before reload
+  window.addEventListener("beforeunload", () => {
+    sessionStorage.setItem("scrollPos", window.scrollY);
   });
 
-  // When page loads, open last saved section
+  // On reload, restore scroll position
   window.addEventListener("load", () => {
-    const lastPage = sessionStorage.getItem("lastPage");
-    if (lastPage) {
-      const active = document.querySelector(`[data-page='${lastPage}']`);
-      if (active) {
-        document.querySelectorAll("section").forEach(s => s.style.display = "none");
-        active.style.display = "block";
-      }
+    const scrollPos = sessionStorage.getItem("scrollPos");
+    if (scrollPos) {
+      window.scrollTo(0, parseInt(scrollPos));
+      sessionStorage.removeItem("scrollPos");
     }
   });
 </script>
